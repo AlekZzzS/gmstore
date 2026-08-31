@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Админка — GG Store</title>
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/utility.css">
+</head>
+<body class="util">
+<header class="util-bar">
+  <a class="util-bar__back" href="/">← На витрину</a>
+  <span class="util-bar__title">Админка · выдача и склад</span>
+  <span class="util-bar__link">
+    <input id="token" class="util-input util-input--sm" placeholder="admin token" value="dev-admin-token">
+  </span>
+</header>
+
+<main class="util-shell">
+  <!-- Дизайн админки по условию не требуется — только рабочий вид. -->
+  <section class="util-card">
+    <h2 class="util-h2">Склад поставщиков</h2>
+    <div id="stock" class="util-muted">…</div>
+    <div class="util-row">
+      <select id="stockProvider" class="util-input util-input--sm">
+        <option value="A">Поставщик A</option>
+        <option value="B">Поставщик B (резервный)</option>
+      </select>
+      <input id="stockCount" class="util-input util-input--sm" type="number" value="5" min="1" max="500">
+      <button class="btn btn--ghost" id="topup">Пополнить пул</button>
+      <button class="btn btn--ghost" id="drain">Опустошить пул</button>
+      <span class="util-muted util-muted--sm">«Опустошить» воспроизводит сценарий «остаток закончился в момент выдачи»</span>
+    </div>
+  </section>
+
+  <section class="util-card">
+    <h2 class="util-h2">Оплачен, но не выдан</h2>
+    <div class="util-row">
+      <label class="util-check"><input type="checkbox" id="showAll"> показать все заказы</label>
+      <button class="btn btn--ghost" id="refresh">Обновить</button>
+      <span class="util-muted util-muted--sm" id="autoNote">автообновление каждые 3 с</span>
+    </div>
+    <div id="orders"></div>
+  </section>
+
+  <section class="util-card">
+    <h2 class="util-h2">Промокоды</h2>
+    <div id="promos"></div>
+  </section>
+
+  <section class="util-card">
+    <h2 class="util-h2">Сбои поставщиков (для воспроизведения сценариев)</h2>
+    <div id="chaos" class="util-grid2"></div>
+    <div class="util-row">
+      <button class="btn btn--ghost" id="chaosSave">Применить</button>
+      <button class="btn btn--ghost" id="chaosOff">Выключить сбои</button>
+      <button class="btn btn--ghost" id="chaosTrap">Ловушка таймаута (A всегда зависает)</button>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+services:
+  store:
+    build: .
+    image: gamestore
+    container_name: gamestore
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      # Число воркеров на одном порту. Гарантии однократной выдачи держатся
+      # на ограничениях SQLite, а не на однопоточности — 4 процесса это показывают.
+      CLUSTER: "${CLUSTER:-4}"
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-dev-admin-token}"
+    volumes:
+      - store-data:/data
+    restart: unless-stopped
+
+  # Прогон проверок гонок: поднимает свой сервер внутри контейнера,
+  # своя БД в tmpfs, к сервису store не обращается.
+  #   docker compose run --rm tests
+  tests:
+    build: .
+    image: gamestore
+    profiles: ["test"]
+    environment:
+      TEST_DB_DIR: /tmp
+    command: ["node", "scripts/run-all.js"]
+
+volumes:
+  store-data:

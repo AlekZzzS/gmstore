@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GG Store — цифровые товары для геймеров</title>
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- Страница в макете — белая подложка 1280px по центру на сером фоне. -->
+<div class="page-wrap">
+
+<!-- ── Шапка ─────────────────────────────────────────────────────────────── -->
+<header class="header">
+  <div class="shell header__inner">
+    <!-- В макете слева от кнопки «Каталог» пустое место 192px — судя по всему,
+         слот под логотип. Воспроизводим, чтобы шапка совпадала с макетом. -->
+    <div class="header__logo-slot" aria-hidden="true"></div>
+    <button class="catalog-btn" id="catalogBtn" aria-expanded="false" aria-controls="catalogMenu">
+      <svg class="catalog-btn__grid" viewBox="0 0 16 16" aria-hidden="true">
+        <rect x="0" y="0" width="7" height="7" rx="1.5"/><rect x="9" y="0" width="7" height="7" rx="1.5"/>
+        <rect x="0" y="9" width="7" height="7" rx="1.5"/><rect x="9" y="9" width="7" height="7" rx="1.5"/>
+      </svg>
+      Каталог
+    </button>
+
+    <form class="search" role="search" onsubmit="return false">
+      <input class="search__input" type="search" placeholder="Игра, приложение или услуга..." aria-label="Поиск">
+      <button class="search__fav" type="button" aria-label="Избранное">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 17s-6.5-4.2-6.5-8.3A3.7 3.7 0 0 1 10 6.2a3.7 3.7 0 0 1 6.5 2.5C16.5 12.8 10 17 10 17z"/></svg>
+      </button>
+      <button class="search__go" type="submit" aria-label="Искать">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg>
+      </button>
+    </form>
+
+    <button class="avatar" type="button" aria-label="Профиль">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.4"/><path d="M5 19.5c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+    </button>
+  </div>
+
+  <!-- (2) Выпадающее меню каталога -->
+  <div class="catalog-menu" id="catalogMenu" hidden>
+    <div class="shell catalog-menu__inner">
+      <nav class="catalog-menu__rail" id="catalogRail" aria-label="Разделы каталога"></nav>
+      <div class="catalog-menu__cols" id="catalogCols"></div>
+    </div>
+  </div>
+</header>
+<div class="catalog-overlay" id="catalogOverlay" hidden></div>
+
+<main class="shell page">
+
+  <!-- (1) Баннер-карусель ──────────────────────────────────────────────── -->
+  <section class="banner" id="banner" aria-roledescription="карусель" aria-label="Акции">
+    <div class="banner__track" id="bannerTrack"></div>
+    <div class="banner__nav">
+      <button class="banner__arrow" id="bannerPrev" aria-label="Предыдущий слайд">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+      </button>
+      <button class="banner__arrow" id="bannerNext" aria-label="Следующий слайд">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>
+      </button>
+    </div>
+    <div class="banner__dots" id="bannerDots" role="tablist" aria-label="Слайды"></div>
+  </section>
+
+  <!-- Один белый блок: ряд сервисов + разделитель + пополнение Steam.
+       В макете это единый контейнер, а не две карточки. -->
+  <section class="panel">
+
+    <!-- (4) Иконки сервисов -->
+    <ul class="services__row" id="servicesRow" aria-label="Сервисы"></ul>
+
+    <div class="panel__divider" role="separator"></div>
+
+    <!-- Блок пополнения Steam -->
+    <div class="topup">
+      <div class="topup__brand">
+        <img class="topup__logo" src="assets/steam-topup.png" alt="" width="72" height="72">
+        <div>
+          <div class="topup__title">Пополнение Steam <span class="badge-green">5%</span></div>
+          <button class="topup__promo" id="promoToggle" aria-expanded="false" aria-controls="promoBox">
+            Ввести промокод
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <label class="field field--login">
+        <span class="field__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.4"/><path d="M5 19.5c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+        </span>
+        <!-- По условию логин Steam вводить не нужно — поле оставлено как в макете. -->
+        <input class="field__input" type="text" placeholder="Логин Steam" aria-label="Логин Steam">
+        <span class="field__hint" title="Логин нужен для зачисления средств">i</span>
+      </label>
+
+      <div class="field field--amount">
+        <span class="field__icon field__icon--rub" aria-hidden="true">₽</span>
+        <div class="field__stack">
+          <span class="field__label">Сумма</span>
+          <span class="field__value" id="topupAmount">500₽</span>
+        </div>
+        <!-- (3) Переключатель валют -->
+        <div class="currency" id="currency" role="group" aria-label="Валюта">
+          <button class="currency__btn is-active" data-currency="USD" data-symbol="$" aria-pressed="true">$</button>
+          <button class="currency__btn" data-currency="KZT" data-symbol="₸" aria-pressed="false">₸</button>
+          <button class="currency__btn" data-currency="RUB" data-symbol="₽" aria-pressed="false">₽</button>
+        </div>
+      </div>
+
+      <button class="btn btn--pay" id="topupPay">Оплатить 500$</button>
+
+      <div class="promo-box" id="promoBox" hidden>
+        <input class="promo-box__input" id="promoInput" placeholder="Промокод (например WELCOME10)" autocomplete="off">
+        <button class="btn btn--ghost" id="promoApply" type="button">Применить</button>
+        <span class="promo-box__msg" id="promoMsg"></span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- (5) Карточки товара ──────────────────────────────────────────────── -->
+  <section class="products" aria-label="Популярные товары">
+    <div class="products__head">
+      <h2 class="products__title">Популярные товары</h2>
+      <div class="chips" id="chips" role="tablist"></div>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+</main>
+
+</div><!-- /.page-wrap -->
+
+<!-- Тост -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/data.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

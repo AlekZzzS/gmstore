@@ -1,0 +1,20 @@
+{
+  "name": "gamestore",
+  "version": "1.0.0",
+  "description": "Магазин цифровых товаров: витрина + однократная выдача ключей под гонками",
+  "private": true,
+  "type": "commonjs",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node server/index.js",
+    "cluster": "CLUSTER=4 node server/index.js",
+    "reset": "node scripts/reset.js",
+    "test": "node scripts/run-all.js",
+    "race:webhooks": "node scripts/race-webhooks.js",
+    "race:buy": "node scripts/race-buy.js",
+    "race:promo": "node scripts/race-promo.js",
+    "race:recovery": "node scripts/race-recovery.js",
+    "stress": "node scripts/stress.js"
+  },
+  "dependencies": {}
+}

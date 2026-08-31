@@ -1,0 +1,98 @@
+/* Служебные страницы: статус заказа и админка.
+   По условию дизайн здесь не требуется — достаточно рабочего вида. */
+
+.util { background: var(--bg); }
+
+.util-bar {
+  display: flex; align-items: center; gap: 16px;
+  height: 56px; padding: 0 22px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.util-bar__back { color: var(--ink-2); text-decoration: none; font-size: 14px; }
+.util-bar__back:hover { color: var(--ink); }
+.util-bar__title { font-weight: 700; }
+.util-bar__link { margin-left: auto; font-size: 14px; color: var(--ink-2); text-decoration: none; }
+
+.util-shell { max-width: 940px; margin: 0 auto; padding: 22px 20px 60px; display: grid; gap: 16px; }
+
+.util-card {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 18px 20px; box-shadow: var(--shadow-1);
+}
+.util-h2 { margin: 0 0 12px; font-size: 16px; font-weight: 700; }
+.util-h3 { margin: 18px 0 8px; font-size: 13px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
+.util-muted { color: var(--muted); font-size: 14px; }
+.util-muted--sm { font-size: 12.5px; }
+.util-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.util-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.util-check { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--ink-2); }
+
+.util-input {
+  height: 40px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: #f6f7fa; outline: none; font-size: 14px;
+}
+.util-input:focus { border-color: var(--ink); background: var(--surface); }
+.util-input--sm { height: 34px; font-size: 13px; }
+.util-input--w { width: 100%; }
+
+/* Статус заказа */
+.status-hero { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; border-radius: 999px;
+  font-size: 13px; font-weight: 700;
+  background: #eef0f5; color: var(--ink-2);
+}
+.status-pill::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.status-pill[data-s="delivered"]      { background: #e5f7ec; color: #0d8b41; }
+.status-pill[data-s="paid"],
+.status-pill[data-s="delivering"]     { background: #fff4e0; color: #a86a10; }
+.status-pill[data-s="created"]        { background: #eaf1ff; color: #2a5bb5; }
+.status-pill[data-s="payment_failed"] { background: #fdeaea; color: #b8342a; }
+.status-pill[data-s="out_of_stock"],
+.status-pill[data-s="delivery_failed"]{ background: #fdf0e6; color: #b5581b; }
+.status-pill.is-spin::before { animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: .25; } }
+
+.code-box {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-top: 14px; padding: 16px 18px;
+  border: 1.5px dashed var(--green); border-radius: 12px; background: #f3fbf6;
+}
+.code-box__value { font-size: 22px; font-weight: 800; letter-spacing: .08em; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+.kv { display: grid; grid-template-columns: 190px 1fr; gap: 7px 16px; margin-top: 14px; font-size: 14px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; }
+
+.timeline { margin-top: 6px; border-left: 2px solid var(--line); padding-left: 16px; }
+.timeline li { position: relative; padding: 5px 0; font-size: 13px; color: var(--ink-2); }
+.timeline li::before {
+  content: ''; position: absolute; left: -21px; top: 12px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--line);
+}
+.timeline li b { color: var(--ink); font-weight: 600; }
+.timeline li span { color: var(--muted); }
+
+/* Таблицы админки */
+.util-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.util-table th, .util-table td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+.util-table th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.util-table tbody tr:hover { background: #fafbfd; }
+.util-table code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; }
+.util-table .btn { height: 30px; padding: 0 12px; font-size: 12.5px; }
+
+.tag {
+  display: inline-block; padding: 3px 9px; border-radius: 6px;
+  font-size: 11.5px; font-weight: 700; background: #eef0f5; color: var(--ink-2);
+}
+.tag[data-s="delivered"]       { background: #e5f7ec; color: #0d8b41; }
+.tag[data-s="paid"],
+.tag[data-s="delivering"]      { background: #fff4e0; color: #a86a10; }
+.tag[data-s="out_of_stock"],
+.tag[data-s="delivery_failed"] { background: #fdf0e6; color: #b5581b; }
+.tag[data-s="payment_failed"]  { background: #fdeaea; color: #b8342a; }
+
+.bar { height: 7px; border-radius: 4px; background: #eef0f5; overflow: hidden; max-width: 220px; }
+.bar > i { display: block; height: 100%; background: var(--green); }
